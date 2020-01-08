@@ -8,6 +8,35 @@
 
 解决ImportError: No module named pydot： 通常是pip install xxx
 
+参考链接：
+安装几个包：Keras网络训练可视化调用plot_model ，ImportError: Failed to import `pydot`.
+networkx demo参考网站：https://www.cnblogs.com/wushaogui/p/9202853.html#53%E6%8C%87%E5%AE%9A%E8%BE%B9%E7%9A%84%E5%B1%9E%E6%80%A7
+https://www.mlln.cn/2018/09/19/networkx%E5%85%A5%E9%97%A8/
+
+Networkx参考手册
+https://blog.csdn.net/qingqingpiaoguo/article/details/60570894
+
+networkx相关API参考：
+https://networkx.github.io/documentation/networkx-1.10/index.html
+https://networkx.github.io/documentation/stable/reference/classes/graph.html#
+
+networkx关于Graph的各种操作
+https://blog.csdn.net/haoshan4783/article/details/90750456
+
+Python: ValueError: too many values to unpack
+https://www.cnblogs.com/baxianhua/p/8275627.html
+
+Python中多层List展平为一层
+https://www.cnblogs.com/wushaogui/p/9241931.html
+
+TypeError: 'str' object does not support item assignment的原因
+https://blog.csdn.net/eruituoa/article/details/82696387
+
+gevent安装： sudo pip install gevent networkx lxml
+
+sudo apt-get install graphviz
+
+
 ### 2013-03-03
 
 使用 [graphviz](http://www.graphviz.org/) 绘图,
