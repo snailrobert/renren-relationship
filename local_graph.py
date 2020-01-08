@@ -6,6 +6,8 @@ import subprocess
 
 
 import networkx as nx
+#from networkx import write_dot
+#from networkx.drawing.nx_agraph import write_dot()
 
 from renren import FriendsStore, RenRenRelationShip
 
@@ -39,7 +41,9 @@ class GraphAnalysis(object):
         self.max_node_size = 10
 
     def import_data(self, fs_list, min_keep=20):
+        print 'fs len='+str(len(fs_list))
         for fs in fs_list:
+            #print 'uid='+fs.uid+', fiends='+list(fs.friends)[0]
             self.G.add_node(fs.uid, lv=fs.level)
             if fs.friends:
                 edges = [(fs.uid, u) for u in fs.friends]
@@ -47,21 +51,23 @@ class GraphAnalysis(object):
                 
                 
         # 删掉level 2点，否则最后生成的图片点重叠在一起，看不清
-        for n in self.G.nodes():
+        for n in list(self.G.nodes()):
             if self.G.node[n]['lv'] == 2:
                 self.G.remove_node(n)
                 
 
         self.clear_nodes()
         self.degree = nx.degree(self.G)
-        self.max_degree_value = max(self.degree.values())
+        print 'node count='+str(len(list(self.degree)))
+        self.max_degree_value = max(max(list(self.degree)))
+        print 'max degree value='+self.max_degree_value
         self.max_degree_value_floated = float(self.max_degree_value)
         
         
         
     def _clear_nodes(self):
         need_clear = False
-        for n in self.G.nodes():
+        for n in list(self.G.nodes()):
             if self.G.degree(n) < 2:
                 self.G.remove_node(n)
                 need_clear = True
@@ -172,15 +178,20 @@ class DrawGraphviz(GraphAnalysis):
             attr['height'] = attr['width']
             attr['color'] = self.one_node_color(n)
             
-            self.G.node[n] = attr
+            #self.G.node[n] = attr
+            self.G.node[n].update(attr)
             
-            edges = self.G.edge[n]
-            for ed in edges:
-                self.G.edge[n][ed] = {'color': '{0}22'.format(attr['color'])}
+            edges = self.G.edges(n)
+            #edges.update(self.G.edges[n])
+            #for ed in edges:
+                #self.G.edges[n][ed] = {'color': '{0}22'.format(attr['color'])}
+                #self.G.edges[n, ed]['color'] = '{0}22'.format(attr['color'])
+                #self.G.edges[n, ed]['color'] = 'green'
                 
         
         DOT_FILE = '_renren.dot'
-        nx.write_dot(self.G, DOT_FILE)
+        #nx.write_dot(self.G, DOT_FILE)
+        write_dot(self.G, DOT_FILE)
         pipe = subprocess.PIPE
         
         graphviz_command = ['dot']
@@ -197,6 +208,7 @@ class DrawGraphviz(GraphAnalysis):
 
 
 if __name__ == '__main__':
+    from networkx.drawing.nx_pydot import write_dot,read_dot
     data = _load()
     g = DrawGraphviz()
     g.import_data(data)
