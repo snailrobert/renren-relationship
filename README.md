@@ -5,6 +5,9 @@
 
 ## 更新
 
+
+解决ImportError: No module named pydot： 通常是pip install xxx
+
 ### 2013-03-03
 
 使用 [graphviz](http://www.graphviz.org/) 绘图,
