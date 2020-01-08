@@ -4,6 +4,14 @@
 
 
 ## 更新
+### 2020-01-08
+1、安装Pydot
+由于python位于usr下，故安装时不能使用sudo pip install pydot
+我用了另外一种方式: sudo apt install python-pydot python-pydot-ng graphviz
+发现深度os安装的pydot过旧，报错：ImportError: pydot 1.0.29 < 1.2.3
+故覆盖安装指定版本：pip install pydot==1.2.3 --user
+
+
 
 ### 2013-03-03
 
