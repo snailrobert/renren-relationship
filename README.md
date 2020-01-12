@@ -6,6 +6,9 @@ http://friend.renren.com/GetFriendList.do?curpage=0&id=xxx
 
 ## 更新
 
+## 相关
+https://github.com/snailrobert/some-spider.git
+
 ### 2020-01-12
 python \uxxxx转中文
 https://zhidao.baidu.com/question/938196078692953772.html
