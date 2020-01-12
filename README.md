@@ -1,9 +1,32 @@
 # 人人网好友关系图
 
 恩，很大的题目，但做的很差。所以欢迎大家来fix
+http://friend.renren.com/GetFriendList.do?curpage=0&id=xxx
 
 
 ## 更新
+
+### 2020-01-12
+python \uxxxx转中文
+https://zhidao.baidu.com/question/938196078692953772.html
+
+## python爬虫之xpath的基本使用
+https://www.cnblogs.com/lei0213/p/7506130.html
+https://www.cnblogs.com/xiaozx/p/10727164.html
+https://www.cnblogs.com/lei0213/p/7506130.html
+
+## python如何将xml对象转化为字符串（lxml）
+https://blog.csdn.net/qq_40147863/article/details/82192119
+https://blog.csdn.net/qq_38410428/article/details/82792730
+https://blog.csdn.net/qq_37454841/article/details/80493994
+
+## python爬虫系列--lxml（etree/parse/xpath)的使用
+https://blog.csdn.net/qq_35208583/article/details/89041912
+
+## Python自定义对象转json
+https://blog.csdn.net/weixin_41431904/article/details/80733600
+https://blog.csdn.net/u011304615/article/details/70140901
+https://blog.csdn.net/helang296479893/article/details/83657309
 
 ### 2020-01-08
 
