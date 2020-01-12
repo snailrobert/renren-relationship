@@ -3,11 +3,14 @@
 import random
 import cPickle as pickle
 import subprocess
+import numpy as np
+import time
 
 
 import networkx as nx
 #from networkx import write_dot
 #from networkx.drawing.nx_agraph import write_dot()
+import json
 
 from renren import FriendsStore, RenRenRelationShip
 
@@ -18,21 +21,39 @@ def _dump(data):
     with open(RENREN_FILE, 'w') as f:
         pickle.dump(data, f, 2)
         
+def getAllFriends(sLevel):
+    from utils import get_accounts
+    r = RenRenRelationShip(*get_accounts())
         
-def _load():
-    try:
-        with open(RENREN_FILE, 'r') as f:
+    print 'collect friends'
+    data = r.collect_friends(level=sLevel)
+    if sLevel == 2:
+       _dump(data)
+    return data
+
+        
+def _load(operate):
+    if operate == 'relationShip':
+       try:
+           with open(RENREN_FILE, 'r') as f:
             return pickle.load(f)
-    except IOError:
-        from utils import get_accounts
-        r = RenRenRelationShip(*get_accounts())
-        
-        print 'collect friends'
-        data = r.collect_friends(level=2)
-        _dump(data)
-        return data
+       except IOError:
+           return getAllFriends(2)
+    else:
+       return getAllFriends(1)
 
-
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        #if isinstance(obj, time):
+        #    return obj.__str__()
+        else:
+            return super(NpEncoder, self).default(obj)
 
 class GraphAnalysis(object):
     def __init__(self):
@@ -209,8 +230,11 @@ class DrawGraphviz(GraphAnalysis):
 
 if __name__ == '__main__':
     from networkx.drawing.nx_pydot import write_dot,read_dot
-    data = _load()
-    g = DrawGraphviz()
-    g.import_data(data)
-    g.save()
+    #operate: 'getAllFriends'/'relationShip'
+    operate = 'relationShip'
+    data = _load(operate)
+    if operate == 'relationShip':
+      g = DrawGraphviz()
+      g.import_data(data)
+      g.save()
 
