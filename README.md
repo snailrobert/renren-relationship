@@ -1,6 +1,7 @@
 # 人人网好友关系图
 
 恩，很大的题目，但做的很差。所以欢迎大家来fix
+http://friend.renren.com/GetFriendList.do?curpage=0&id=xxx
 
 
 ## 更新
@@ -11,6 +12,75 @@
 发现深度os安装的pydot过旧，报错：ImportError: pydot 1.0.29 < 1.2.3
 故覆盖安装指定版本：pip install pydot==1.2.3 --user
 
+
+
+## 相关
+https://github.com/snailrobert/some-spider.git
+
+### 2020-01-12
+python \uxxxx转中文
+https://zhidao.baidu.com/question/938196078692953772.html
+
+## python爬虫之xpath的基本使用
+https://www.cnblogs.com/lei0213/p/7506130.html
+https://www.cnblogs.com/xiaozx/p/10727164.html
+https://www.cnblogs.com/lei0213/p/7506130.html
+
+## python如何将xml对象转化为字符串（lxml）
+https://blog.csdn.net/qq_40147863/article/details/82192119
+https://blog.csdn.net/qq_38410428/article/details/82792730
+https://blog.csdn.net/qq_37454841/article/details/80493994
+
+## python爬虫系列--lxml（etree/parse/xpath)的使用
+https://blog.csdn.net/qq_35208583/article/details/89041912
+
+## Python自定义对象转json
+https://blog.csdn.net/weixin_41431904/article/details/80733600
+https://blog.csdn.net/u011304615/article/details/70140901
+https://blog.csdn.net/helang296479893/article/details/83657309
+
+### 2020-01-08
+
+## Python参考网站
+https://www.runoob.com/python/python-lists.html
+
+python set元素访问
+https://www.cnblogs.com/imhuanxi/p/11027555.html
+
+Python返回数组（List）长度的方法
+https://www.cnblogs.com/telwanggs/p/10383642.html
+
+1、安装Pydot 由于python位于usr下，故安装时不能使用sudo pip install pydot 我用了另外一种方式: sudo apt install python-pydot python-pydot-ng graphviz 发现深度os安装的pydot过旧，报错：ImportError: pydot 1.0.29 < 1.2.3 故覆盖安装指定版本：pip install pydot==1.2.3 --user
+
+解决ImportError: No module named pydot： 通常是pip install xxx
+
+参考链接：
+安装几个包：Keras网络训练可视化调用plot_model ，ImportError: Failed to import `pydot`.
+networkx demo参考网站：https://www.cnblogs.com/wushaogui/p/9202853.html#53%E6%8C%87%E5%AE%9A%E8%BE%B9%E7%9A%84%E5%B1%9E%E6%80%A7
+https://www.mlln.cn/2018/09/19/networkx%E5%85%A5%E9%97%A8/
+
+Networkx参考手册
+https://blog.csdn.net/qingqingpiaoguo/article/details/60570894
+
+networkx相关API参考：
+https://networkx.github.io/documentation/networkx-1.10/index.html
+https://networkx.github.io/documentation/stable/reference/classes/graph.html#
+
+networkx关于Graph的各种操作
+https://blog.csdn.net/haoshan4783/article/details/90750456
+
+Python: ValueError: too many values to unpack
+https://www.cnblogs.com/baxianhua/p/8275627.html
+
+Python中多层List展平为一层
+https://www.cnblogs.com/wushaogui/p/9241931.html
+
+TypeError: 'str' object does not support item assignment的原因
+https://blog.csdn.net/eruituoa/article/details/82696387
+
+gevent安装： sudo pip install gevent networkx lxml
+
+sudo apt-get install graphviz
 
 
 ### 2013-03-03

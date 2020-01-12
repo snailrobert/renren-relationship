@@ -12,6 +12,7 @@ import random
 import urllib
 import urllib2
 import cookielib
+import json
 
 from lxml import etree
 
@@ -19,7 +20,15 @@ from lxml import etree
 
 from utils import retry, gtimeout
 
-
+class RenrenInfo:
+   uid=str
+   uname=str
+   uschool=str 
+   
+   def __init__(self,uid,uname,uschool):
+        self.uid=uid
+        self.uname=uname
+        self.uschool=uschool
 
 class FriendsStore(object):
     __slots__ = ('uid', 'level', 'parent', 'friends')
@@ -108,7 +117,7 @@ class RenRen(object):
         self.opener.open(url)
 
 
-    def get_friends(self, uid=None):
+    def get_friends(self, uid=None, level=2):
         uid = uid or self.uid
         
         URL = 'http://friend.renren.com/GetFriendList.do?curpage={0}&id=' + str(uid)
@@ -117,7 +126,7 @@ class RenRen(object):
         parse = etree.HTMLParser()
         tree = etree.parse(first_page, parse)
         friends_amount = int(tree.xpath('//div[@id="toc"]/p[1]/span/text()')[0])
-
+        
 
         friends_pages, _rest = divmod(friends_amount, 20)
         if _rest > 0:
@@ -125,7 +134,10 @@ class RenRen(object):
 
 
         friends_xpath = '//div[@id="list-results"]//li/p/a/@href'
+        friends_name = '//div[@id="list-results"]//li/div/dl/dd/a/text()'
+        friends_school = '//div[@id="list-results"]//li/div/dl/dd[last()]/text()'
         all_friends = []
+        all_friends2 = []
 
 
         first_page_friends = [f.split('=')[1] for f in tree.xpath(friends_xpath)]
@@ -134,16 +146,40 @@ class RenRen(object):
 
         @retry()
         @gtimeout()
-        def _get(p):
+        def _get(p, level):
             html = self.opener.open(URL.format(p))
             tree = etree.parse(html, parse)
             res = [f.split('=')[1] for f in tree.xpath(friends_xpath)]
+            if level == 1:
+               nameobjects = tree.xpath(friends_name)
+               schoolobjects = tree.xpath(friends_school)
+#             result = etree.tostring(tree.xpath(friends_name)[0])
+#             print(result.decode())
+               for index in range(len(res)):
+                 print res[index]
+                 print nameobjects[index].encode('utf8')
+                 schoolobj = "not"
+              
+                 if index < len(schoolobjects):
+                   schoolobj = schoolobjects[index]
+                 print schoolobj
+                 rr = RenrenInfo(res[index], nameobjects[index].encode('utf8'), schoolobj)
+                 all_friends2.append(rr.__dict__)
+#               overdict = rr.__dict__
+
+#  + nameobjects[0].encode('utf8') + schoolobjects[index]
             return res
 
         #this is sync version
-        for i in range(1, friends_pages):
-            all_friends.extend(_get(i))
-
+        initNum = 1
+        if level == 1:
+           initNum = 0
+        for i in range(initNum, friends_pages):
+            all_friends.extend(_get(i, level))
+        if level == 1:
+           jstr=json.dumps(all_friends2, ensure_ascii=False, encoding='UTF-8')
+           print(jstr)
+           print(type(jstr))
 
         # 多次测试发现，对同一个人的好友不能并发请求，
         # 如果并发，这些请求全部会block住，没有响应。
@@ -179,9 +215,9 @@ class RenRenRelationShip(object):
         
         @gtimeout(360, mute=True)
         def _collect(fo):
-            friends = set(self.renren.get_friends(fo.uid))
+            friends = set(self.renren.get_friends(fo.uid, level))
             if uid in friends:
-                friends.remove(uid)
+                 friends.remove(uid)
             fo.friends = friends
             return fo
         
